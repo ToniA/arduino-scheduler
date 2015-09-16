@@ -19,38 +19,35 @@
 
 class Scheduler {
 public:
-	// constructor
-	Scheduler();
+    // constructors
+    Scheduler();
 
-	// calls client->schedulerCallback at the end of each period
-	int every(SchedulerClient* client, unsigned long period);
-	// calls client->schedulerCallback at most repeatCount times
-	int every(SchedulerClient* client, unsigned long period,\
-			int repeatCount);
+    // calls client->schedulerCallback at the end of each period
+    int every(SchedulerClient* client, unsigned long period);
+    // calls client->schedulerCallback at most repeatCount times
+    int every(SchedulerClient* client, unsigned long period,\
+            int repeatCount);
 
-	// oscillate pin
-	int oscillate(byte pin, unsigned long period, \
-		  byte startValue);
-	// oscillate repeatCount times
-	int oscillate(byte pin, unsigned long period, 
-		  byte startValue, int repeatCount);
-	
-	// stop execution of an event with id
-	void stop(byte id);
-	// call in loop
-	void update(void);
+    // oscillate pin
+    int oscillate(byte pin, unsigned long period, \
+          byte startValue);
+    // oscillate repeatCount times
+    int oscillate(byte pin, unsigned long period,
+          byte startValue, int repeatCount);
 
-	// you can get a global instance
-	static Scheduler* getInstance() {
-		static Scheduler instance;
-		return &instance;
-	};
+    // stop execution of an event with id
+    void stop(byte id);
+    // call in loop
+    void update(void);
+
+    // you can get a global instance
+    static Scheduler* getInstance();
 
 private:
-	Event* events[SCH_MAX_EVENT];
-	byte eventCnt;
+    Event* events[SCH_MAX_EVENT];
+    byte eventCnt;
 
-	Event* getFreeEvent();
+    Event* getFreeEvent();
 };
 
 #endif

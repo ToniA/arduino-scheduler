@@ -6,18 +6,17 @@
 #ifndef SCHEDULER_CLIENT_H
 #define SCHEDULER_CLIENT_H
 
+#include "Arduino.h"
+
 class SchedulerClient {
 public:
-	SchedulerClient(void (*cb)(int)) { this->cb=cb; };
-	SchedulerClient() { this->cb=NULL; }
+    SchedulerClient(void (*cb)(int));
+    SchedulerClient();
 
-	virtual void schedulerCallback(int eventId) {
-		if(this->cb!=NULL)
-			this->cb(eventId);
-	};
-	virtual void schedulerEnded(int evendId) { };
+    virtual void schedulerCallback(int eventId);
+    virtual void schedulerEnded(int evendId);
 protected:
-	void (*cb)(int);
+    void (*cb)(int);
 };
 
 #endif
