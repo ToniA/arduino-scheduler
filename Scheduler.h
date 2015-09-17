@@ -15,12 +15,16 @@
 #include "SchedulerClient.h"
 #include "Event.h"
 
-#define SCH_MAX_EVENT 10
+#define SCH_DEFAULT_EVENTS 10
 
 class Scheduler {
 public:
     // constructors
     Scheduler();
+    Scheduler(byte numberOfEvents);
+
+    // dynamic allocation also requires a destructor
+    ~Scheduler(void);
 
     // calls client->schedulerCallback at the end of each period
     int every(SchedulerClient* client, unsigned long period);
@@ -44,8 +48,9 @@ public:
     static Scheduler* getInstance();
 
 private:
-    Event* events[SCH_MAX_EVENT];
+    Event** events;
     byte eventCnt;
+    byte maxEvents;
 
     Event* getFreeEvent();
 };

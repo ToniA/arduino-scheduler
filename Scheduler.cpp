@@ -1,10 +1,21 @@
 #include "Scheduler.h"
 
 Scheduler::Scheduler() {
-    for(byte i=0; i<SCH_MAX_EVENT; i++) {
+    Scheduler(SCH_DEFAULT_EVENTS);
+}
+
+Scheduler::Scheduler(byte numberOfEvents) {
+    this->events = (Event**)malloc(numberOfEvents * sizeof(Event*));
+
+    for(byte i=0; i<numberOfEvents; i++) {
         this->events[i]=NULL;
     }
-    this->eventCnt=0;
+    this->eventCnt = 0;
+    this->maxEvents = numberOfEvents;
+}
+
+Scheduler::~Scheduler() {
+    free(this->events);
 }
 
 void Scheduler::update(void) {
@@ -31,7 +42,7 @@ Event* Scheduler::getFreeEvent() {
         if(this->events[i]->getEventType()==Event::NONE)
             return this->events[i];
     }
-    if(i>=SCH_MAX_EVENT) {
+    if(i>=this->maxEvents) {
         return NULL;
     }
     Event *e=new Event(this->eventCnt++);
