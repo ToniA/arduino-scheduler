@@ -1,9 +1,5 @@
 #include "Scheduler.h"
 
-Scheduler::Scheduler() {
-    Scheduler(SCH_DEFAULT_EVENTS);
-}
-
 Scheduler::Scheduler(byte numberOfEvents) {
     this->events = (Event**)malloc(numberOfEvents * sizeof(Event*));
 

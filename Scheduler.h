@@ -19,9 +19,8 @@
 
 class Scheduler {
 public:
-    // constructors
-    Scheduler();
-    Scheduler(byte numberOfEvents);
+    // constructor
+    Scheduler(byte numberOfEvents = SCH_DEFAULT_EVENTS);
 
     // dynamic allocation also requires a destructor
     ~Scheduler(void);
